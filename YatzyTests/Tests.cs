@@ -73,7 +73,7 @@ namespace YatzyTests {
         [InlineData(new[] {3, 1, 5, 6, 4}, false)]
         public void TakeIntArrayAndReturnsBoolIfHasTwoUniquePairs(int[] input, bool expected) {
             var scoreCalculator = new ScoreCalculator();
-            var actual = scoreCalculator.HasTwoUniquePairs(input);
+            var actual = ScoreCalculator.HasTwoUniquePairs(input);
             Assert.Equal(expected, actual);
         } 
         
@@ -83,7 +83,7 @@ namespace YatzyTests {
         [InlineData(new[] {3, 1, 5, 6, 4}, new int[] {})]
         public void TakeIntArrayAndReturnsUniquePairs(int[] input, int[] expected) {
             var scoreCalculator = new ScoreCalculator();
-            var actual = scoreCalculator.GetUniquePairs(input);
+            var actual = ScoreCalculator.GetUniquePairs(input);
             Assert.Equal(expected, actual);
         }
         

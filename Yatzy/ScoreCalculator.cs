@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Yatzy {
+    
     public class ScoreCalculator {
         public int Calculate(Categories category, IEnumerable<int> input) {
             switch (category) {
@@ -26,9 +27,9 @@ namespace Yatzy {
                     return CalculatePairScore(input);
                 case Categories.TwoPairs:
                     return CalculateTwoPairsScore(input);
-                /*case Categories.ThreeOfAKind:
-                    break;
-                case Categories.SmallStraight:
+                case Categories.ThreeOfAKind:
+                    return CalculateThreeOfAKindScore(input);
+                /*case Categories.SmallStraight:
                     break;
                 case Categories.LargeStraight:
                     break;
@@ -38,6 +39,17 @@ namespace Yatzy {
                 default:
                     throw new ArgumentOutOfRangeException(nameof(category), category, null);
             }
+        }
+
+        private int CalculateThreeOfAKindScore(IEnumerable<int> input) {
+            return 3 * GetThreeOfAKind(input);
+        }
+
+        private int GetThreeOfAKind(IEnumerable<int> input) {
+            for (var i = 1; i <= 6; i++)
+                if (input.Count(element => element == i) >= 3)
+                    return i;
+            return 0;
         }
 
         private int CalculateTwoPairsScore(IEnumerable<int> input) {
@@ -50,12 +62,8 @@ namespace Yatzy {
         }
 
         private int CalculatePairScore(IEnumerable<int> input) {
-            if (HasPair(input)) {
-                var highestPair = GetHighestPair(input);
-                return 2 * highestPair;
-            }
-
-            return 0;
+            var highestPair = GetHighestPair(input);
+            return 2 * highestPair;
         }
 
         private static int CalculateNumsScore(IEnumerable<int> input, int num) {
@@ -80,16 +88,14 @@ namespace Yatzy {
         }
 
         public int GetHighestPair(IEnumerable<int> input) {
-            var currentHighestPair = -1;
-
+            var currentHighestPair = 0;
             for (var i = 1; i <= 6; i++)
                 if (input.Count(element => element == i) >= 2 && i > currentHighestPair)
                     currentHighestPair = i;
-
             return currentHighestPair;
         }
 
-        public bool HasTwoUniquePairs(IEnumerable<int> input) {
+        public static bool HasTwoUniquePairs(IEnumerable<int> input) {
             var counter = 0;
 
             for (var i = 1; i <= 6; i++)
@@ -99,7 +105,7 @@ namespace Yatzy {
             return counter == 2;
         }
 
-        public IEnumerable<int> GetUniquePairs(IEnumerable<int> input) {
+        public static IEnumerable<int> GetUniquePairs(IEnumerable<int> input) {
             var pairs = new List<int>();
 
             for (var i = 1; i <= 6; i++)
@@ -107,14 +113,6 @@ namespace Yatzy {
                     pairs.Add(i);
 
             return pairs.ToArray();
-        }
-
-        public bool HasThreeOfAKind(int[] input) {
-            for (var i = 1; i <= 6; i++)
-                if (input.Count(element => element == i) >= 3)
-                    return true;
-
-            return false;
         }
     }
 }
