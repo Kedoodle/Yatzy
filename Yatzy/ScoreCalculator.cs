@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 
 namespace Yatzy {
     
@@ -29,6 +30,8 @@ namespace Yatzy {
                     return CalculateTwoPairsScore(input);
                 case Categories.ThreeOfAKind:
                     return CalculateThreeOfAKindScore(input);
+                case Categories.FourOfAKind:
+                    return CalculateFourOfAKindScore(input);
                 /*case Categories.SmallStraight:
                     break;
                 case Categories.LargeStraight:
@@ -39,6 +42,17 @@ namespace Yatzy {
                 default:
                     throw new ArgumentOutOfRangeException(nameof(category), category, null);
             }
+        }
+
+        private int CalculateFourOfAKindScore(IEnumerable<int> input) {
+            return 4 * GetFourOfAKind(input);
+        }
+
+        private int GetFourOfAKind(IEnumerable<int> input) {
+            for (var i = 1; i <= 6; i++)
+                if (input.Count(element => element == i) >= 4)
+                    return i;
+            return 0;
         }
 
         private int CalculateThreeOfAKindScore(IEnumerable<int> input) {

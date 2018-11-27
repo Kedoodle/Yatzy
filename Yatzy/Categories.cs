@@ -11,6 +11,7 @@ namespace Yatzy {
         Pair,
         TwoPairs,
         ThreeOfAKind,
+        FourOfAKind,
         SmallStraight,
         LargeStraight,
         FullHouse
