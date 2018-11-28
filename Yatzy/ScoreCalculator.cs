@@ -52,7 +52,7 @@ namespace Yatzy {
                 if (input.Count(element => element == i) == 3)
                     threeOfAKind = i;
             }
-            return (twoOfAKind != 0 && threeOfAKind != 0) ? input.Sum() : 0;
+            return twoOfAKind != 0 && threeOfAKind != 0 ? input.Sum() : 0;
         }
 
         private int CalculateLargeStraightScore(IEnumerable<int> input) {

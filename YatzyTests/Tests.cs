@@ -75,18 +75,18 @@ namespace YatzyTests {
             var scoreCalculator = new ScoreCalculator();
             var actual = scoreCalculator.HasTwoUniquePairs(input);
             Assert.Equal(expected, actual);
-        } 
-        
+        }
+
         [Theory]
         [InlineData(new[] {3, 3, 3, 4, 4}, new[] {3, 4})]
         [InlineData(new[] {3, 3, 3, 2, 2}, new[] {2, 3})]
-        [InlineData(new[] {3, 1, 5, 6, 4}, new int[] {})]
+        [InlineData(new[] {3, 1, 5, 6, 4}, new int[] { })]
         public void TakeIntArrayAndReturnsUniquePairs(int[] input, int[] expected) {
             var scoreCalculator = new ScoreCalculator();
             var actual = scoreCalculator.GetUniquePairs(input);
             Assert.Equal(expected, actual);
         }
-        
+
         [Theory]
         [InlineData(new[] {3, 3, 3, 4, 4}, 14)]
         [InlineData(new[] {3, 3, 3, 2, 2}, 10)]
@@ -96,7 +96,7 @@ namespace YatzyTests {
             var actual = scoreCalculator.Calculate(Categories.TwoPairs, input);
             Assert.Equal(expected, actual);
         }
-        
+
         [Theory]
         [InlineData(new[] {3, 3, 3, 4, 4}, 9)]
         [InlineData(new[] {3, 3, 2, 2, 2}, 6)]
@@ -106,7 +106,15 @@ namespace YatzyTests {
             var actual = scoreCalculator.Calculate(Categories.ThreeOfAKind, input);
             Assert.Equal(expected, actual);
         }
-        
-        
+
+        [Theory]
+        [InlineData(new[] {2, 2, 2, 2, 5}, 8)]
+        [InlineData(new[] {2, 2, 2, 5, 5}, 0)]
+        [InlineData(new[] {2, 2, 2, 2, 2}, 8)]
+        public void TakeIntArrayAndReturnsScoreForFourOfAKind(int[] input, int expected) {
+            var scoreCalculator = new ScoreCalculator();
+            var actual = scoreCalculator.Calculate(Categories.FourOfAKind, input);
+            Assert.Equal(expected, actual);
+        }
     }
 }
