@@ -32,16 +32,35 @@ namespace Yatzy {
                     return CalculateThreeOfAKindScore(input);
                 case Categories.FourOfAKind:
                     return CalculateFourOfAKindScore(input);
-                /*case Categories.SmallStraight:
-                    break;
+                case Categories.SmallStraight:
+                    return CalculateSmallStraightScore(input);
                 case Categories.LargeStraight:
-                    break;
+                    return CalculateLargeStraightScore(input);
                 case Categories.FullHouse:
-                    break;
-                    */
+                    return CalculateFullHouseScore(input);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(category), category, null);
             }
+        }
+
+        private int CalculateFullHouseScore(IEnumerable<int> input) {
+            var twoOfAKind = 0;
+            var threeOfAKind = 0;
+            for (var i = 1; i <= 6; i++) {
+                if (input.Count(element => element == i) == 2)
+                    twoOfAKind = i;
+                if (input.Count(element => element == i) == 3)
+                    threeOfAKind = i;
+            }
+            return (twoOfAKind != 0 && threeOfAKind != 0) ? input.Sum() : 0;
+        }
+
+        private int CalculateLargeStraightScore(IEnumerable<int> input) {
+            return input.Any(element => element == 1) ? 0 : 20;
+        }
+
+        private int CalculateSmallStraightScore(IEnumerable<int> input) {
+            return input.Any(element => element == 6) ? 0 : 15;
         }
 
         private int CalculateFourOfAKindScore(IEnumerable<int> input) {
@@ -109,7 +128,7 @@ namespace Yatzy {
             return currentHighestPair;
         }
 
-        public static bool HasTwoUniquePairs(IEnumerable<int> input) {
+        public bool HasTwoUniquePairs(IEnumerable<int> input) {
             var counter = 0;
 
             for (var i = 1; i <= 6; i++)
@@ -119,7 +138,7 @@ namespace Yatzy {
             return counter == 2;
         }
 
-        public static IEnumerable<int> GetUniquePairs(IEnumerable<int> input) {
+        public IEnumerable<int> GetUniquePairs(IEnumerable<int> input) {
             var pairs = new List<int>();
 
             for (var i = 1; i <= 6; i++)

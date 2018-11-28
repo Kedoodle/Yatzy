@@ -50,7 +50,7 @@ namespace YatzyTests {
         [Theory]
         [InlineData(new[] {3, 3, 3, 4, 4}, 4)]
         [InlineData(new[] {3, 3, 3, 5, 5}, 5)]
-        [InlineData(new[] {3, 2, 1, 5, 6}, -1)]
+        [InlineData(new[] {3, 2, 1, 5, 6}, 0)]
         public void TakeIntArrayAndReturnHighestPair(int[] input, int expected) {
             var scoreCalculator = new ScoreCalculator();
             var actual = scoreCalculator.GetHighestPair(input);
@@ -73,7 +73,7 @@ namespace YatzyTests {
         [InlineData(new[] {3, 1, 5, 6, 4}, false)]
         public void TakeIntArrayAndReturnsBoolIfHasTwoUniquePairs(int[] input, bool expected) {
             var scoreCalculator = new ScoreCalculator();
-            var actual = ScoreCalculator.HasTwoUniquePairs(input);
+            var actual = scoreCalculator.HasTwoUniquePairs(input);
             Assert.Equal(expected, actual);
         } 
         
@@ -83,7 +83,7 @@ namespace YatzyTests {
         [InlineData(new[] {3, 1, 5, 6, 4}, new int[] {})]
         public void TakeIntArrayAndReturnsUniquePairs(int[] input, int[] expected) {
             var scoreCalculator = new ScoreCalculator();
-            var actual = ScoreCalculator.GetUniquePairs(input);
+            var actual = scoreCalculator.GetUniquePairs(input);
             Assert.Equal(expected, actual);
         }
         
@@ -94,18 +94,16 @@ namespace YatzyTests {
         public void TakeIntArrayAndReturnsScoreForTwoPairs(int[] input, int expected) {
             var scoreCalculator = new ScoreCalculator();
             var actual = scoreCalculator.Calculate(Categories.TwoPairs, input);
-            
             Assert.Equal(expected, actual);
         }
         
         [Theory]
-        [InlineData(new[] {3, 3, 3, 4, 4}, true)]
-        [InlineData(new[] {3, 3, 2, 2, 2}, true)]
-        [InlineData(new[] {3, 1, 5, 6, 4}, false)]
-        public void TakeIntArrayAndReturnsBoolIfHasThreeOfAKind(int[] input, bool expected) {
+        [InlineData(new[] {3, 3, 3, 4, 4}, 9)]
+        [InlineData(new[] {3, 3, 2, 2, 2}, 6)]
+        [InlineData(new[] {3, 1, 5, 6, 4}, 0)]
+        public void TakeIntArrayAndReturnsBoolIfHasThreeOfAKind(int[] input, int expected) {
             var scoreCalculator = new ScoreCalculator();
-            var actual = scoreCalculator.HasThreeOfAKind(input);
-           
+            var actual = scoreCalculator.Calculate(Categories.ThreeOfAKind, input);
             Assert.Equal(expected, actual);
         }
         
