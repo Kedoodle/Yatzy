@@ -116,5 +116,15 @@ namespace YatzyTests {
             var actual = scoreCalculator.Calculate(Categories.FourOfAKind, input);
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(new[] {1,1,2,2,2}, 8)]
+        [InlineData(new[] {2,2,3,3,4}, 0)]
+        [InlineData(new[] {4,4,4,4,4}, 0)]
+        public void TakeIntArrayAndReturnsScoreForFullHouse(int[] input, int expected) {
+            var scoreCalculator = new ScoreCalculator();
+            var actual = scoreCalculator.Calculate(Categories.FullHouse, input);
+            Assert.Equal(expected, actual);
+        }
     }
 }
